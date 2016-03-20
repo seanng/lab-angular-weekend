@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="ShoppingCartApp">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -10,50 +10,51 @@
 
     <script src="bower_components/angular/angular.js"></script>
     <script src="js/application.js"></script>
-
+    <script src="js/itemListController.js"></script>
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
   </head>
   <body>
-    <div id="main" class="container-fluid">
+    <div id="main" class="container-fluid" ng-controller="ItemListController">
       <h1>Shopping Cart</h1>
 
       <section id="items-list" class="container-fluid">
-        <div class="row">
-          <div class="col-xs-4">Nothing</div>
-          <div class="col-xs-3">$0.0</div>
+        <div class="row" ng-repeat="obj in itemlist">
+          <div class="col-xs-4">{{obj.itemName}}</div>
+          <div class="col-xs-3" ng-model="obj.itemPrice">${{obj.itemPrice|number:2}}</div>
           <div class="col-xs-3">
             <label>QTY</label>
-            <input class="quantity" value="0">
+            <input class="quantity" ng-model="obj.itemQty" ng-keyup="obj.calculateRowTotal()">
             <button type="button" class="btn btn-default">Cancel</button>
           </div>
-          <div class="col-xs-2">$0.0</div>
+          <div class="col-xs-2">${{obj.itemTotal|number:2}}</div>
         </div>
       </section>
+
       <section id="new-item">
         <div class="row">
           <div class="col-xs-4">
             <label>Item</label>
-            <input type="text">
+            <input type="text" ng-model="newItemName">
           </div>
           <div class="col-xs-3">
             <label>Price</label>
-            <input type="text">
+            <input type="text" ng-model="newItemPrice">
           </div>
           <div class="col-xs-3">
-            <button type="button" class="btn btn-primary">Create</button>
+            <button type="button" class="btn btn-primary" ng-click="createNewItem()">Create</button>
           </div>
         </div>
       </section>
       <section>
         <div class="row">
           <div class="col-xs-3 col-xs-offset-9">
-            <button type="button" class="btn btn-success pull-right">
+            <button type="button" class="btn btn-success pull-right" ng-click="calculateTotalPrice()" >
               Calculate Prices
             </button>
           </div>
         </div>
-        <h1>Total Price: $0.0</h1>
+        <h1>Total Price: ${{totalPrice|number:2}}</h1>
       </section>
     </div>
   </body>

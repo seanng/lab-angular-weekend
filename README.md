@@ -1,4 +1,4 @@
-# Lab: Angular Weekend
+	# Lab: Angular Weekend
 
 Are you ready to do some AngularJS coding this weekend?
 

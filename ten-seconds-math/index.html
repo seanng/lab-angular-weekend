@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="TenSecondMathApp">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
@@ -10,11 +10,12 @@
 
     <script src="bower_components/angular/angular.js"></script>
     <script src="js/application.js"></script>
+    <script src="js/gameController.js"></script>
 
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/custom.css" rel="stylesheet">
   </head>
-  <body>
+  <body ng-controller="GameController">
     <div class="container-fluid">
       <div class="row">
 
@@ -25,7 +26,7 @@
         <div id="gameover-box" class="well col-xs-12 col-sm-8 col-sm-offset-2">
           <h1 class="text-center">Game Over</h1>
           <h3 class="text-center">You scored {{points}} Points</h3>
-          <button type="button" class="btn btn-primary center-block">Start again?</button>
+          <button type="button" class="btn btn-primary center-block" ng-click="startGame()">Start again?</button>
         </div>
 
         <div id="answer-box" class="well col-xs-12 col-sm-8 col-sm-offset-2">
@@ -35,7 +36,7 @@
           <p id="equation" class="text-center">
             {{num1}} + {{num2}}
           </p>
-          <input type="number" class="center-block" id="solution-input" placeholder="Your answer">
+          <input type="number" class="center-block" ng-model="solutioninput" id="solution-input" placeholder="Your answer" ng-keyup="checkAnswer()">
         </div>
 
       </div>
